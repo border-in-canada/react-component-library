@@ -12,12 +12,14 @@
 }
 
 .input-box label {
+    color: grey;
     position: absolute;
     left: 5px;
     top: 20%;
 }
 
 .input-box label:active {
+    color: inherit;
     left: 0;
     top: -20px;
 }
