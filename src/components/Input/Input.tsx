@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { useState } from 'react';
-import "./Input.css";
+import styles from "./Input.module.css";
 
 export interface InputProps {
     label: string;
@@ -12,16 +12,16 @@ const Input = ({ label, name, required = false }: InputProps) => {
     const [inputValue, setInputValue] = useState('');
 
     return (
-        <div className="input-box">
-            <label>
-                {label}
-                <input
-                    name={name}
-                    required={required}
-                    value={inputValue}
-                    onChange={e => setInputValue(e.target.value)}
-                />
-            </label>
+        <div className={styles.input}>
+            <input className={styles.input}
+                id={name}
+                name={name}
+                placeholder={label}
+                required={required}
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+            />
+            <label htmlFor={name} className={styles.label}>{label}</label>
         </div>
     )
 };

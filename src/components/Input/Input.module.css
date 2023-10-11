@@ -1,0 +1,41 @@
+.input{
+    margin: 5px 5px 5px 0;
+    position: relative;
+}
+input{
+    border: 1px solid;
+    border-radius: 3px;
+    font-size: 1em;
+    height: 35px;
+    max-width: 300px;
+    position: relative;
+    width: 100%;
+}
+input:focus {
+    border: 2px solid orange;
+    outline: none;
+}
+label{
+    background-color: white;
+    left: 0;
+    padding: 4px;
+    position: absolute;
+    top: 10px;
+    transition: top .2s linear, left .2s linear, opacity .2s linear;
+    opacity: 0;
+}
+input:focus + label {
+    left: 25px;
+    top: -8px;
+    opacity: 100%;
+}
+input::placeholder {
+    opacity: 100%;
+    transition: opacity .17s linear;
+    transition-delay: .1s;
+    visibility: visible;
+}
+input:focus::placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
