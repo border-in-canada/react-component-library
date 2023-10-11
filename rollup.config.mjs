@@ -6,7 +6,9 @@ import autoprefixer from "autoprefixer";
 import terser from "@rollup/plugin-terser";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from "rollup-plugin-postcss";
+import postcssPresetEnv from "postcss-preset-env";
 import packageJson from "./package.json" assert { type: "json" };
+import stringHash from "string-hash";
 
 export default [
   {
@@ -29,11 +31,26 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
+
       postcss({
-        plugins: [autoprefixer()],
-        sourceMap: true,
-        extract: true,
-        minimize: true
+        plugins: [
+          postcssPresetEnv(),
+          autoprefixer(),
+        ],
+        autoModules: false,
+        onlyModules: false,
+        modules: {
+          generateScopedName: (name, filename, css) => {
+            if (filename.includes('global')) {
+              return name;
+            }
+            const hash = stringHash(css).toString(36).substring(0, 5);
+            return `test_${name}_${hash}`;
+          },
+        },
+        extensions: ['.css'],
+        minimize: true,
+        sourceMap: false,
       }),
 
       terser(),
